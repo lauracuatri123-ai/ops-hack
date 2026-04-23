@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Ops Hack — by Laura</title>
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg-card: #131316;
+    --bg-card-hover: #1a1a1f;
+    --border: #2a2a30;
+    --text: #e8e8ea;
+    --text-muted: #8b8b92;
+    --accent: #ff7a3d;
+    --accent-soft: rgba(255, 122, 61, 0.12);
+    --success: #3ecf8e;
+    --danger: #ff5a6a;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  nav { position: sticky; top: 0; z-index: 100; background: rgba(10,10,11,0.85); backdrop-filter: blur(12px); border-bottom: 1px solid var(--border); padding: 16px 0; }
+  nav .container { display: flex; justify-content: space-between; align-items: center; }
+  .logo { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
+  .logo span { color: var(--accent); }
+  .cta-nav { background: var(--accent); color: #fff; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; font-size: 0.9rem; }
+  .cta-nav:hover { background: #e56830; }
+  .hero { padding: 100px 0 80px; text-align: center; }
+  .hero .eyebrow { display: inline-block; background: var(--accent-soft); color: var(--accent); padding: 6px 14px; border-radius: 100px; font-size: 0.85rem; font-weight: 600; margin-bottom: 24px; letter-spacing: 0.02em; }
+  .hero h1 { font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 800; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: 20px; max-width: 900px; margin-left: auto; margin-right: auto; }
+  .hero h1 span { color: var(--accent); }
+  .hero .subtitle { font-size: 1.15rem; color: var(--text-muted); max-width: 640px; margin: 0 auto 40px; }
+  .hero-cta { display: inline-flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
+  .btn { padding: 14px 28px; border-radius: 10px; font-weight: 600; text-decoration: none; font-size: 1rem; border: none; cursor: pointer; transition: all 0.15s; }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { background: #e56830; transform: translateY(-1px); }
+  .btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-secondary:hover { background: var(--bg-card); }
+  section { padding: 80px 0; border-top: 1px solid var(--border); }
+  .section-header { text-align: center; margin-bottom: 60px; }
+  .section-header .kicker { color: var(--accent); font-weight: 600; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+  .section-header h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.15; margin-bottom: 16px; }
+  .section-header p { color: var(--text-muted); max-width: 600px; margin: 0 auto; font-size: 1.05rem; }
+  .pain-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
+  .pain-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px; }
+  .pain-card .before { color: var(--danger); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .pain-card .before-text { font-size: 1.05rem; margin-bottom: 18px; line-height: 1.4; color: var(--text-muted); font-style: italic; }
+  .pain-card .divider { height: 1px; background: var(--border); margin: 18px 0; }
+  .pain-card .after { color: var(--success); font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .pain-card .after-text { font-size: 1rem; line-height: 1.5; }
+  .layers { display: flex; flex-direction: column; gap: 16px; }
+  .layer { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 28px 32px; display: flex; gap: 28px; align-items: flex-start; transition: all 0.2s; }
+  .layer:hover { background: var(--bg-card-hover); border-color: var(--accent); }
+  .layer .num { font-size: 2.2rem; font-weight: 800; color: var(--accent); line-height: 1; flex-shrink: 0; width: 52px; }
+  .layer h3 { font-size: 1.3rem; margin-bottom: 8px; font-weight: 700; }
+  .layer p { color: var(--text-muted); margin-bottom: 14px; font-size: 0.98rem; }
+  .layer ul { list-style: none; padding: 0; }
+  .layer li { font-size: 0.92rem; color: var(--text); margin-bottom: 6px; padding-left: 18px; position: relative; }
+  .layer li::before { content: "→"; color: var(--accent); position: absolute; left: 0; }
+  .deliverables-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; }
+  .deliverable { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; padding: 18px 22px; display: flex; align-items: flex-start; gap: 12px; }
+  .deliverable .check { width: 22px; height: 22px; border-radius: 6px; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; flex-shrink: 0; font-weight: 700; }
+  .deliverable span { font-size: 0.95rem; line-height: 1.4; }
+  .timeline { display: flex; flex-direction: column; gap: 12px; max-width: 800px; margin: 0 auto; }
+  .timeline-item { display: flex; gap: 20px; align-items: flex-start; padding: 22px; background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); }
+  .timeline-item .day { background: var(--accent-soft); color: var(--accent); padding: 6px 14px; border-radius: 8px; font-weight: 700; font-size: 0.85rem; white-space: nowrap; flex-shrink: 0; }
+  .timeline-item h4 { margin-bottom: 4px; font-weight: 700; }
+  .timeline-item p { color: var(--text-muted); font-size: 0.92rem; }
+  .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; max-width: 1000px; margin: 0 auto; }
+  .tier { background: var(--bg-card); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px 28px; display: flex; flex-direction: column; position: relative; }
+  .tier.featured { border-color: var(--accent); transform: scale(1.02); }
+  .tier.featured::before { content: "MOST POPULAR"; position: absolute; top: -12px; right: 20px; background: var(--accent); color: #fff; padding: 4px 14px; border-radius: 100px; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.05em; }
+  .tier-name { font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+  .tier-price { font-size: 2.4rem; font-weight: 800; color: var(--accent); margin-bottom: 4px; letter-spacing: -0.02em; }
+  .tier-price small { font-size: 0.9rem; color: var(--text-muted); font-weight: 400; letter-spacing: normal; }
+  .tier-desc { color: var(--text-muted); font-size: 0.92rem; margin-bottom: 24px; min-height: 42px; }
+  .tier ul { list-style: none; margin-bottom: 24px; flex: 1; }
+  .tier li { font-size: 0.92rem; padding: 8px 0 8px 24px; position: relative; border-bottom: 1px solid var(--border); }
+  .tier li:last-child { border-bottom: none; }
+  .tier li::before { content: "✓"; color: var(--success); position: absolute; left: 0; font-weight: 700; }
+  .tier .btn { width: 100%; text-align: center; }
+  .faq { max-width: 800px; margin: 0 auto; }
+  .faq-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 10px; margin-bottom: 10px; overflow: hidden; }
+  .faq-item summary { padding: 20px 24px; cursor: pointer; font-weight: 600; list-style: none; display: flex; justify-content: space-between; align-items: center; }
+  .faq-item summary::-webkit-details-marker { display: none; }
+  .faq-item summary::after { content: "+"; color: var(--accent); font-size: 1.3rem; font-weight: 400; }
+  .faq-item[open] summary::after { content: "−"; }
+  .faq-item p { padding: 0 24px 20px; color: var(--text-muted); font-size: 0.95rem; }
+  .final-cta { text-align: center; padding: 100px 24px; background: linear-gradient(180deg, transparent 0%, var(--accent-soft) 100%); }
+  .final-cta h2 { font-size: clamp(1.8rem, 4vw, 2.8rem); margin-bottom: 20px; letter-spacing: -0.02em; }
+  .final-cta p { color: var(--text-muted); margin-bottom: 32px; font-size: 1.1rem; }
+  footer { padding: 40px 0; text-align: center; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border); }
+  @media (max-width: 640px) {
+    .layer { flex-direction: column; gap: 12px; }
+    .tier.featured { transform: none; }
+    section { padding: 60px 0; }
+    .hero { padding: 60px 0 50px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div class="logo">The Ops <span>Hack</span></div>
+    <div style="display:flex; gap:12px; align-items:center;">
+      <div style="font-size:0.85rem; color:var(--text-muted);">
+        <a href="/" style="color:var(--text-muted); text-decoration:none;">ES</a>
+        <span style="margin:0 6px;">·</span>
+        <a href="/en" style="color:var(--accent); text-decoration:none; font-weight:600;">EN</a>
+      </div>
+      <a href="#pricing" class="cta-nav">Book install</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero container">
+  <div class="eyebrow">Project Management · Powered by Claude</div>
+  <h1>The PM system that <span>forces you</span> to stay organized.</h1>
+  <p class="subtitle">The stack I built to run 3 projects, collaborate with my co-founder, and never lose a task. Now I install it on your machine. In 14 days.</p>
+  <div class="hero-cta">
+    <a href="#pricing" class="btn btn-primary">See packages</a>
+    <a href="#how" class="btn btn-secondary">How it works</a>
+  </div>
+</div>
+
+<section id="pain">
+  <div class="container">
+    <div class="section-header">
+      <div class="kicker">The problem</div>
+      <h2>You know this pain</h2>
+      <p>5 tools, nothing talks to each other, and your AI forgets everything between sessions.</p>
+    </div>
+    <div class="pain-grid">
+      <div class="pain-card"><div class="before">Without the system</div><div class="before-text">"I have tasks in 5 places and never know which one is the truth."</div><div class="divider"></div><div class="after">With The Ops Hack</div><div class="after-text">One Master Plan in Google Sheets. Everything else mirrors automatically.</div></div>
+      <div class="pain-card"><div class="before">Without the system</div><div class="before-text">"I start projects and never close them."</div><div class="divider"></div><div class="after">With The Ops Hack</div><div class="after-text">Guard hooks + 6 PM rules force you to close every task properly before moving on.</div></div>
+      <div class="pain-card"><div class="before">Without the system</div><div class="before-text">"My AI forgets everything between sessions."</div><div class="divider"></div><div class="after">With The Ops Hack</div><div class="after-text">Structured memory + persistent rules. Your AI obeys without being reminded.</div></div>
+      <div class="pain-card"><div class="before">Without the system</div><div class="before-text">"I can't collaborate with my co-founder without overwriting changes."</div><div class="divider"></div><div class="after">With The Ops Hack</div><div class="after-text">Shared GitHub setup + branch protection. Nothing breaks without review.</div></div>
+      <div class="pain-card"><div class="before">Without the system</div><div class="before-text">"I pay $65/mo for Notion + Todoist + Asana and I'm still disorganized."</div><div class="divider"></div><div class="after">With The Ops Hack</div><div class="after-text">$0/mo recurring. Runs on Google Sheets + the Claude you already have.</div></div>
+      <div class="pain-card"><div class="before">Without the system</div><div class="before-text">"Notion overwhelms me, Asana isn't for me."</div><div class="divider"></div><div class="after">With The Ops Hack</div><div class="after-text">It's not "another tool". It's a system that uses the ones you already have, properly connected.</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="container">
+    <div class="section-header">
+      <div class="kicker">How it works</div>
+      <h2>4 layers that fit together</h2>
+      <p>Each layer solves a piece. Together they make a complete operating system.</p>
+    </div>
+    <div class="layers">
+      <div class="layer"><div class="num">01</div><div><h3>Operating core</h3><p>The backbone. A Google Sheet that's the bible of your work.</p><ul><li>Master Plan with 11 standard columns</li><li>Auto Gantt + conditional formatting</li><li>sync.py with 6 PM rules enforced</li><li>Guard hook that blocks raw writes</li></ul></div></div>
+      <div class="layer"><div class="num">02</div><div><h3>Claude skills</h3><p>Automated rituals. Your AI doesn't improvise — it obeys a protocol.</p><ul><li>/hi — session start check-in</li><li>/bye — clean close with full sync</li><li>/mp-done — complete task + sync Calendar + Tasks</li><li>/sync-plan — reconcile Sheet + Notion + Memory</li></ul></div></div>
+      <div class="layer"><div class="num">03</div><div><h3>Structured memory</h3><p>Your AI gets smarter every session. It doesn't forget.</p><ul><li>4 memory types: user / feedback / project / reference</li><li>Feedback-as-rules: every correction becomes permanent</li><li>MEMORY.md as navigable index</li><li>Standard frontmatter on every file</li></ul></div></div>
+      <div class="layer"><div class="num">04</div><div><h3>Integrations</h3><p>Your current stack, connected and respected.</p><ul><li>Google Sheets · Calendar · Tasks · Gmail · Drive</li><li>Notion (optional, bidirectional)</li><li>GitHub with CODEOWNERS + branch protection (for duo teams)</li><li>Canva API (optional)</li></ul></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="deliverables">
+  <div class="container">
+    <div class="section-header">
+      <div class="kicker">What you get</div>
+      <h2>Tangible checklist</h2>
+      <p>Nothing abstract. After 14 days, you have all of this running on your machine.</p>
+    </div>
+    <div class="deliverables-grid">
+      <div class="deliverable"><div class="check">✓</div><span>Google Sheet Master Plan set up with your projects</span></div>
+      <div class="deliverable"><div class="check">✓</div><span>sync.py + guard.sh installed locally</span></div>
+      <div class="deliverable"><div class="check">✓</div><span>Notion DB connected (if you use Notion)</span></div>
+      <div class="deliverable"><div class="check">✓</div><span>6-8 ready-to-use Claude skills</span></div>
+      <div class="deliverable"><div class="check">✓</div><span>Starter memory folder with base rules</span></div>
+      <div class="deliverable"><div class="check">✓</div><span>Claude Code hooks configured</span></div>
+      <div class="deliverable"><div class="check">✓</div><span>GitHub repo with CODEOWNERS (if duo)</span></div>
+      <div class="deliverable"><div class="check">✓</div><span>20-min Loom video: daily operation</span></div>
+      <div class="deliverable"><div class="check">✓</div><span>"How to run your day" PDF (10 pages)</span></div>
+      <div class="deliverable"><div class="check">✓</div><span>30 days of Slack/email support</span></div>
+      <div class="deliverable"><div class="check">✓</div><span>1 review call at the end for tweaks</span></div>
+      <div class="deliverable"><div class="check">✓</div><span>Access to system updates for 6 months</span></div>
+    </div>
+  </div>
+</section>
+
+<section id="timeline">
+  <div class="container">
+    <div class="section-header">
+      <div class="kicker">Timeline</div>
+      <h2>14 days, step by step</h2>
+      <p>You invest 3 calls and I invest ~10 hours of technical work.</p>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item"><div class="day">Day 1</div><div><h4>Discovery call (60 min)</h4><p>We map your 1-3 projects, stakeholders, current tools, typical blockers.</p></div></div>
+      <div class="timeline-item"><div class="day">Day 2-3</div><div><h4>Technical setup (me alone)</h4><p>I install the toolchain, configure Google APIs, prep skills + memory + hooks.</p></div></div>
+      <div class="timeline-item"><div class="day">Day 4</div><div><h4>Install call (90 min)</h4><p>Screen share. I install on your Mac, we load your projects, first session with your AI together.</p></div></div>
+      <div class="timeline-item"><div class="day">Day 5-13</div><div><h4>Active support</h4><p>Slack/WhatsApp. I answer questions, we adjust on the fly, refine memory.</p></div></div>
+      <div class="timeline-item"><div class="day">Day 14</div><div><h4>Review call (60 min)</h4><p>We review how you're using it, final adjustments, engagement wrap-up.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<section id="pricing">
+  <div class="container">
+    <div class="section-header">
+      <div class="kicker">Packages</div>
+      <h2>Pick how to start</h2>
+      <p>3 tiers by depth. All include the operating core.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="tier">
+        <div class="tier-name">Starter</div>
+        <div class="tier-price">$397 <small>/ one-time</small></div>
+        <div class="tier-desc">Template + self-serve install guide. DIY with doc support.</div>
+        <ul><li>Full template repo</li><li>Step-by-step install guide</li><li>6 pre-configured skills</li><li>Base memory + onboarding doc</li><li>Discord community access</li><li>Email support 14 days</li></ul>
+        <a href="#" class="btn btn-secondary">Choose Starter</a>
+      </div>
+      <div class="tier featured">
+        <div class="tier-name">Install</div>
+        <div class="tier-price">$997 <small>/ one-time</small></div>
+        <div class="tier-desc">Done-with-you. I install it for you in 14 days. Most popular.</div>
+        <ul><li>Everything in Starter</li><li>Discovery + install + review calls</li><li>Full technical setup</li><li>2-3 projects configured with you</li><li>Custom Loom video</li><li>30 days of 1:1 support</li></ul>
+        <a href="#" class="btn btn-primary">Choose Install</a>
+      </div>
+      <div class="tier">
+        <div class="tier-name">Duo</div>
+        <div class="tier-price">$1,697 <small>/ one-time</small></div>
+        <div class="tier-desc">For co-founders / teams of 2. Includes collaborative GitHub setup.</div>
+        <ul><li>Everything in Install</li><li>GitHub org + branch protection</li><li>CODEOWNERS configured</li><li>Cross-agent shared protocol</li><li>2 separate installs (both of you)</li><li>60 days of support</li></ul>
+        <a href="#" class="btn btn-secondary">Choose Duo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="faq">
+  <div class="container">
+    <div class="section-header">
+      <div class="kicker">FAQ</div>
+      <h2>Frequently asked</h2>
+    </div>
+    <div class="faq">
+      <details class="faq-item"><summary>Do I need to know how to code?</summary><p>No. The Install package is done-with-you. I handle all the technical parts. You just need to know how to use your Mac and Claude Code.</p></details>
+      <details class="faq-item"><summary>Does it work if I already use Notion / Asana / ClickUp?</summary><p>Yes. The Ops Hack integrates with what you already have. You can keep Notion as your execution view — the system syncs bidirectionally. If you'd rather cancel Notion and save the monthly fee, it also works without.</p></details>
+      <details class="faq-item"><summary>What if I want to change something later?</summary><p>All the code is yours. Modify whatever you want. If you need help, you have 30 days of support included (60 in Duo), and afterwards you can join the monthly membership.</p></details>
+      <details class="faq-item"><summary>Why Google Sheets and not a custom app?</summary><p>Because it works. Sheets is free, you know it, it's reliable, and the API is solid. Building another app would reinvent the wheel. The value is in the discipline + enforcement, not the UI.</p></details>
+      <details class="faq-item"><summary>What if it doesn't work for me?</summary><p>Full refund if you tell me within 14 days that it didn't work. No drama.</p></details>
+      <details class="faq-item"><summary>Who have you tested this with?</summary><p>With my co-founder Ian (final expense broker in the US) running 3 parallel projects. I use the system to manage my marketing agency + Pax Haven launch + Ian's content. You can see my Master Plan on the call.</p></details>
+    </div>
+  </div>
+</section>
+
+<div class="final-cta">
+  <div class="container">
+    <h2>Stop losing tasks.</h2>
+    <p>Book a 15-min call. I'll show you how it works and we'll see if it fits.</p>
+    <a href="#pricing" class="btn btn-primary">Book a call</a>
+  </div>
+</div>
+
+<footer>
+  <div class="container">The Ops Hack · built by Laura · 2026</div>
+</footer>
+
+</body>
+</html>
