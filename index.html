@@ -257,10 +257,10 @@
   <h1>Tu sistema de PM que <span>te obliga</span> a no desorganizarte.</h1>
   <p class="subtitle">
     El stack que construí para manejar 3 proyectos, colaborar con mi socio y no perder tareas.
-    Ahora te lo instalo en tu máquina. En 14 días.
+    Ahora te lo instalo en tu máquina. <strong>$150 install + $20/mo. Cancel anytime.</strong>
   </p>
   <div class="hero-cta">
-    <a href="#pricing" class="btn btn-primary">Ver paquetes</a>
+    <a href="#pricing" class="btn btn-primary">Reservar install</a>
     <a href="#how" class="btn btn-secondary">Cómo funciona</a>
   </div>
 </div>
@@ -462,53 +462,58 @@
 <section id="pricing">
   <div class="container">
     <div class="section-header">
-      <div class="kicker">Paquetes</div>
-      <h2>Elegí cómo arrancar</h2>
-      <p>3 tiers según la profundidad que necesites. Todos incluyen el core operativo.</p>
+      <div class="kicker">Pricing</div>
+      <h2>Un tier. Sin fricción.</h2>
+      <p>Install una vez. Subscripción mensual con todo lo nuevo que shipeo. Cancel anytime.</p>
     </div>
-    <div class="pricing-grid">
-      <div class="tier">
-        <div class="tier-name">Starter</div>
-        <div class="tier-price">$397 <small>/ one-time</small></div>
-        <div class="tier-desc">El template + install guide self-serve. Hacelo vos misma con el soporte del doc.</div>
-        <ul>
-          <li>Template repo completo</li>
-          <li>Install guide paso a paso</li>
-          <li>6 skills pre-configurados</li>
-          <li>Memoria base + onboarding doc</li>
-          <li>Discord community access</li>
-          <li>Email support 14 días</li>
-        </ul>
-        <a href="#" class="btn btn-secondary">Elegir Starter</a>
-      </div>
+    <div class="pricing-grid" style="max-width: 480px; margin: 0 auto; grid-template-columns: 1fr;">
       <div class="tier featured">
-        <div class="tier-name">Install</div>
-        <div class="tier-price">$997 <small>/ one-time</small></div>
-        <div class="tier-desc">Done-with-you. Te lo instalo yo en 14 días. La opción más popular.</div>
+        <div class="tier-name">The Ops Hack</div>
+        <div class="tier-price">$150 <small>install</small></div>
+        <div style="font-size: 1.4rem; font-weight: 700; color: var(--text); margin: -8px 0 12px;">+ $20 <small style="font-size:0.85rem; color:var(--text-muted); font-weight:400;">/ month</small></div>
+        <div class="tier-desc">Te lo instalo, te lo enseño, y mes a mes recibís todo lo nuevo que voy construyendo.</div>
         <ul>
-          <li>Todo lo de Starter</li>
-          <li>Discovery call + install call + review</li>
-          <li>Setup técnico completo</li>
-          <li>2-3 proyectos configurados con vos</li>
-          <li>Video Loom personalizado</li>
-          <li>30 días de soporte 1:1</li>
+          <li><strong>Install ($150 one-time):</strong> discovery call 30 min · setup técnico · install call 60 min · 1-2 proyectos cargados · video Loom 15 min</li>
+          <li><strong>Subscripción ($20/mo):</strong> skills nuevas auto-push · template repo updates · Discord community · Q&A async semanal · monthly check-in call grupal</li>
+          <li>Cancel anytime — sin contratos</li>
+          <li>Todo el código es tuyo desde día 1</li>
         </ul>
-        <a href="#" class="btn btn-primary">Elegir Install</a>
+        <a href="#" class="btn btn-primary">Reservar install</a>
       </div>
-      <div class="tier">
-        <div class="tier-name">Duo</div>
-        <div class="tier-price">$1,697 <small>/ one-time</small></div>
-        <div class="tier-desc">Para co-founders / equipos de 2. Incluye setup GitHub colaborativo.</div>
-        <ul>
-          <li>Todo lo de Install</li>
-          <li>GitHub org + branch protection</li>
-          <li>CODEOWNERS configurado</li>
-          <li>Protocolo cross-agent shared</li>
-          <li>2 installs separados (ambos)</li>
-          <li>60 días de soporte</li>
-        </ul>
-        <a href="#" class="btn btn-secondary">Elegir Duo</a>
-      </div>
+    </div>
+    <p style="text-align:center; color: var(--text-muted); font-size: 0.9rem; margin-top: 32px;">
+      ¿Querés probar el sistema solo? <a href="#template" style="color: var(--accent);">Bajá el template gratis</a>.
+    </p>
+  </div>
+</section>
+
+<!--
+  PRICING v2 — ARCHIVADO (reactivar tras 10 testimoniales positivos)
+  Modelo: 3 tiers one-time
+    - Starter $397: template + install guide self-serve + 6 skills + memoria + Discord + 14d support
+    - Install $997: done-with-you + discovery+install+review calls + setup técnico + 2-3 proyectos + Loom + 30d support
+    - Duo $1,697: 2 founders + GitHub org + branch protection + CODEOWNERS + cross-agent protocol + 60d support
+  Reglas reactivación:
+    - Solo $297 install + $29/mo: tras 10 testimoniales
+    - Duo $797 install + $59/mo: cuando haya demanda real co-founders
+    - Ops Partner $1,497 install + $149/mo: tras 30 suscriptores activos
+-->
+
+<!-- FREE TEMPLATE -->
+<section id="template" style="background: linear-gradient(180deg, transparent 0%, rgba(255,140,40,0.04) 100%);">
+  <div class="container">
+    <div class="section-header">
+      <div class="kicker">Free</div>
+      <h2>O probalo gratis primero</h2>
+      <p>Repo público con el core mínimo: Master Plan template + sync_lite.py + setup guide DIY. Sin call, sin community, sin updates.</p>
+    </div>
+    <div style="max-width: 640px; margin: 0 auto; text-align: center;">
+      <a href="https://github.com/lauracuatri123-ai/ops-hack-template" target="_blank" rel="noopener" class="btn btn-secondary" style="font-size: 1rem;">
+        Ver template en GitHub →
+      </a>
+      <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 16px;">
+        Si después querés el sistema completo (skills + Notion sync + Gantt + hooks + community), <a href="#pricing" style="color: var(--accent);">reservá un install</a>.
+      </p>
     </div>
   </div>
 </section>
@@ -531,7 +536,11 @@
       </details>
       <details class="faq-item">
         <summary>¿Qué pasa si después quiero modificar algo?</summary>
-        <p>Todo el código es tuyo. Modificás lo que quieras. Si necesitás ayuda, tenés 30 días de soporte incluido (60 en Duo), y después podés sumarte a la membership mensual.</p>
+        <p>Todo el código es tuyo desde día 1. Modificás lo que quieras. Si necesitás ayuda, podés mantener la subscripción de $20/mo o cancelar en cualquier momento.</p>
+      </details>
+      <details class="faq-item">
+        <summary>¿Qué incluye la subscripción de $20/mo?</summary>
+        <p>Todo lo nuevo que voy shipeando: skills nuevas auto-push al template repo, mejoras al sync.py, acceso a Discord community, Q&A async semanal y un check-in call grupal mensual. Si cancelás, te quedás con todo lo que ya tenés.</p>
       </details>
       <details class="faq-item">
         <summary>¿Por qué Google Sheets y no una app propia?</summary>

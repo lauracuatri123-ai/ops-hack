@@ -124,9 +124,9 @@
 <div class="hero container">
   <div class="eyebrow">Project Management · Powered by Claude</div>
   <h1>The PM system that <span>forces you</span> to stay organized.</h1>
-  <p class="subtitle">The stack I built to run 3 projects, collaborate with my co-founder, and never lose a task. Now I install it on your machine. In 14 days.</p>
+  <p class="subtitle">The stack I built to run 3 projects, collaborate with my co-founder, and never lose a task. Now I install it on your machine. <strong>$150 install + $20/mo. Cancel anytime.</strong></p>
   <div class="hero-cta">
-    <a href="#pricing" class="btn btn-primary">See packages</a>
+    <a href="#pricing" class="btn btn-primary">Book install</a>
     <a href="#how" class="btn btn-secondary">How it works</a>
   </div>
 </div>
@@ -209,32 +209,50 @@
 <section id="pricing">
   <div class="container">
     <div class="section-header">
-      <div class="kicker">Packages</div>
-      <h2>Pick how to start</h2>
-      <p>3 tiers by depth. All include the operating core.</p>
+      <div class="kicker">Pricing</div>
+      <h2>One tier. No friction.</h2>
+      <p>Install once. Monthly subscription with everything new I ship. Cancel anytime.</p>
     </div>
-    <div class="pricing-grid">
-      <div class="tier">
-        <div class="tier-name">Starter</div>
-        <div class="tier-price">$397 <small>/ one-time</small></div>
-        <div class="tier-desc">Template + self-serve install guide. DIY with doc support.</div>
-        <ul><li>Full template repo</li><li>Step-by-step install guide</li><li>6 pre-configured skills</li><li>Base memory + onboarding doc</li><li>Discord community access</li><li>Email support 14 days</li></ul>
-        <a href="#" class="btn btn-secondary">Choose Starter</a>
-      </div>
+    <div class="pricing-grid" style="max-width: 480px; margin: 0 auto; grid-template-columns: 1fr;">
       <div class="tier featured">
-        <div class="tier-name">Install</div>
-        <div class="tier-price">$997 <small>/ one-time</small></div>
-        <div class="tier-desc">Done-with-you. I install it for you in 14 days. Most popular.</div>
-        <ul><li>Everything in Starter</li><li>Discovery + install + review calls</li><li>Full technical setup</li><li>2-3 projects configured with you</li><li>Custom Loom video</li><li>30 days of 1:1 support</li></ul>
-        <a href="#" class="btn btn-primary">Choose Install</a>
+        <div class="tier-name">The Ops Hack</div>
+        <div class="tier-price">$150 <small>install</small></div>
+        <div style="font-size: 1.4rem; font-weight: 700; color: var(--text); margin: -8px 0 12px;">+ $20 <small style="font-size:0.85rem; color:var(--text-muted); font-weight:400;">/ month</small></div>
+        <div class="tier-desc">I install it, I teach it to you, and every month you get everything new I'm building.</div>
+        <ul>
+          <li><strong>Install ($150 one-time):</strong> 30-min discovery call · technical setup · 60-min install call · 1-2 projects loaded · 15-min Loom walkthrough</li>
+          <li><strong>Subscription ($20/mo):</strong> auto-pushed new skills · template repo updates · Discord community · weekly async Q&A · monthly group check-in call</li>
+          <li>Cancel anytime — no contracts</li>
+          <li>Code is yours from day 1</li>
+        </ul>
+        <a href="#" class="btn btn-primary">Book install</a>
       </div>
-      <div class="tier">
-        <div class="tier-name">Duo</div>
-        <div class="tier-price">$1,697 <small>/ one-time</small></div>
-        <div class="tier-desc">For co-founders / teams of 2. Includes collaborative GitHub setup.</div>
-        <ul><li>Everything in Install</li><li>GitHub org + branch protection</li><li>CODEOWNERS configured</li><li>Cross-agent shared protocol</li><li>2 separate installs (both of you)</li><li>60 days of support</li></ul>
-        <a href="#" class="btn btn-secondary">Choose Duo</a>
-      </div>
+    </div>
+    <p style="text-align:center; color: var(--text-muted); font-size: 0.9rem; margin-top: 32px;">
+      Want to try the system on your own first? <a href="#template" style="color: var(--accent);">Download the free template</a>.
+    </p>
+  </div>
+</section>
+
+<!--
+  PRICING v2 — ARCHIVED (reactivate after 10 positive testimonials)
+  Original 3 tiers one-time: Starter $397 / Install $997 / Duo $1,697
+-->
+
+<section id="template" style="background: linear-gradient(180deg, transparent 0%, rgba(255,122,61,0.04) 100%);">
+  <div class="container">
+    <div class="section-header">
+      <div class="kicker">Free</div>
+      <h2>Or try it free first</h2>
+      <p>Public repo with the minimal core: Master Plan template + sync_lite.py + DIY setup guide. No call, no community, no updates.</p>
+    </div>
+    <div style="max-width: 640px; margin: 0 auto; text-align: center;">
+      <a href="https://github.com/lauracuatri123-ai/ops-hack-template" target="_blank" rel="noopener" class="btn btn-secondary" style="font-size: 1rem;">
+        See template on GitHub →
+      </a>
+      <p style="color: var(--text-muted); font-size: 0.85rem; margin-top: 16px;">
+        If you later want the full system (skills + Notion sync + Gantt + hooks + community), <a href="#pricing" style="color: var(--accent);">book an install</a>.
+      </p>
     </div>
   </div>
 </section>
@@ -248,7 +266,8 @@
     <div class="faq">
       <details class="faq-item"><summary>Do I need to know how to code?</summary><p>No. The Install package is done-with-you. I handle all the technical parts. You just need to know how to use your Mac and Claude Code.</p></details>
       <details class="faq-item"><summary>Does it work if I already use Notion / Asana / ClickUp?</summary><p>Yes. The Ops Hack integrates with what you already have. You can keep Notion as your execution view — the system syncs bidirectionally. If you'd rather cancel Notion and save the monthly fee, it also works without.</p></details>
-      <details class="faq-item"><summary>What if I want to change something later?</summary><p>All the code is yours. Modify whatever you want. If you need help, you have 30 days of support included (60 in Duo), and afterwards you can join the monthly membership.</p></details>
+      <details class="faq-item"><summary>What if I want to change something later?</summary><p>All the code is yours from day 1. Modify whatever you want. If you need help, you can keep the $20/mo subscription or cancel anytime.</p></details>
+      <details class="faq-item"><summary>What does the $20/mo subscription include?</summary><p>Everything new I ship: new skills auto-pushed to the template repo, sync.py improvements, Discord community access, weekly async Q&A, and a monthly group check-in call. If you cancel, you keep everything you already have.</p></details>
       <details class="faq-item"><summary>Why Google Sheets and not a custom app?</summary><p>Because it works. Sheets is free, you know it, it's reliable, and the API is solid. Building another app would reinvent the wheel. The value is in the discipline + enforcement, not the UI.</p></details>
       <details class="faq-item"><summary>What if it doesn't work for me?</summary><p>Full refund if you tell me within 14 days that it didn't work. No drama.</p></details>
       <details class="faq-item"><summary>Who have you tested this with?</summary><p>With my co-founder Ian (final expense broker in the US) running 3 parallel projects. I use the system to manage my marketing agency + Pax Haven launch + Ian's content. You can see my Master Plan on the call.</p></details>
