@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discovery · The Ops Hack</title>
+<meta name="description" content="Fill out this 5-minute form before your Ops Hack install.">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --bg-card: #131316;
+    --bg-card-hover: #1a1a1f;
+    --border: #2a2a30;
+    --text: #e8e8ea;
+    --text-muted: #8b8b92;
+    --accent: #ff7a3d;
+    --accent-soft: rgba(255, 122, 61, 0.12);
+    --success: #3ecf8e;
+    --danger: #ff5a6a;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Inter", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+  .container { max-width: 720px; margin: 0 auto; }
+
+  /* Header */
+  .logo {
+    font-weight: 700;
+    font-size: 1.1rem;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .logo span { color: var(--accent); }
+  .lead {
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+  .lead span { color: var(--accent); }
+  .subtitle {
+    color: var(--text-muted);
+    margin-bottom: 40px;
+    font-size: 1rem;
+  }
+
+  /* Progress */
+  .progress {
+    height: 4px;
+    background: var(--bg-card);
+    border-radius: 100px;
+    margin-bottom: 32px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: var(--accent);
+    width: 0%;
+    transition: width 0.3s ease;
+  }
+
+  /* Cards (questions) */
+  .question {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 28px;
+    margin-bottom: 16px;
+    transition: border-color 0.2s;
+  }
+  .question:focus-within {
+    border-color: var(--accent);
+  }
+  .question-num {
+    color: var(--accent);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .question-label {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+  .question-help {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 16px;
+    margin-top: -8px;
+  }
+
+  /* Radio + Checkbox */
+  .options { display: flex; flex-direction: column; gap: 8px; }
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    user-select: none;
+  }
+  .option:hover { border-color: var(--accent); background: var(--bg-card-hover); }
+  .option input { accent-color: var(--accent); width: 18px; height: 18px; cursor: pointer; }
+  .option.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .option label { cursor: pointer; flex: 1; font-size: 0.95rem; }
+
+  /* Inputs */
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  textarea {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 1rem;
+    font-family: inherit;
+    transition: border-color 0.15s;
+  }
+  input[type="text"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus,
+  textarea:focus {
+    outline: none;
+    border-color: var(--accent);
+  }
+  textarea { min-height: 90px; resize: vertical; }
+
+  /* Country selector + phone */
+  .phone-row {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 10px;
+  }
+  select {
+    width: 100%;
+    padding: 14px 16px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-size: 1rem;
+    font-family: inherit;
+    cursor: pointer;
+    transition: border-color 0.15s;
+    appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'><path d='M2 4l4 4 4-4' stroke='%238b8b92' stroke-width='2' fill='none'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 14px center;
+    padding-right: 36px;
+  }
+  select:focus { outline: none; border-color: var(--accent); }
+  @media (max-width: 480px) {
+    .phone-row { grid-template-columns: 1fr; }
+  }
+
+  /* Submit */
+  .submit-area {
+    margin-top: 32px;
+    text-align: center;
+  }
+  .btn-submit {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    padding: 16px 40px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.15s;
+    min-width: 200px;
+  }
+  .btn-submit:hover:not(:disabled) {
+    background: #e56830;
+    transform: translateY(-1px);
+  }
+  .btn-submit:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .submit-note {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-top: 16px;
+  }
+
+  /* Thank you screen */
+  .thank-you {
+    display: none;
+    text-align: center;
+    padding: 80px 20px;
+  }
+  .thank-you.active { display: block; }
+  .thank-icon {
+    font-size: 3rem;
+    margin-bottom: 24px;
+  }
+  .thank-you h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .thank-you h2 span { color: var(--accent); }
+  .thank-you p {
+    color: var(--text-muted);
+    max-width: 420px;
+    margin: 0 auto 32px;
+    font-size: 1rem;
+  }
+  .thank-link {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+  .thank-link:hover { text-decoration: underline; }
+
+  /* Errors */
+  .error {
+    color: var(--danger);
+    font-size: 0.85rem;
+    margin-top: 8px;
+  }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    body { padding: 24px 16px; }
+    .lead { font-size: 1.3rem; }
+    .question { padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container" id="form-container">
+
+  <!-- Header -->
+  <div class="logo">The Ops <span>Hack</span></div>
+  <h1 class="lead">Antes de tu install, contame <span>cómo trabajás hoy</span>.</h1>
+  <p class="subtitle">7 minutos · 17 preguntas · Te respondo en 24hs con próximos pasos.</p>
+
+  <!-- Progress bar -->
+  <div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+
+  <form id="discoveryForm">
+
+    <!-- Q1 - Name -->
+    <div class="question">
+      <div class="question-num">Question 1 of 17</div>
+      <div class="question-label">What's your name?</div>
+      <input type="text" name="nombre" required placeholder="First and last name">
+    </div>
+
+    <!-- Q2 - Email -->
+    <div class="question">
+      <div class="question-num">Question 2 of 17</div>
+      <div class="question-label">Your email?</div>
+      <input type="email" name="email" required placeholder="you@email.com">
+    </div>
+
+    <!-- Q3 - WhatsApp -->
+    <div class="question">
+      <div class="question-num">Question 3 of 17</div>
+      <div class="question-label">WhatsApp?</div>
+      <div class="phone-row">
+        <select name="whatsapp_country" required>
+          <option value="+1" data-country="USA" selected>🇺🇸 USA / Canada (+1)</option>
+          <option value="+44" data-country="UK">🇬🇧 UK (+44)</option>
+          <option value="+34" data-country="Spain">🇪🇸 Spain (+34)</option>
+          <option value="+54" data-country="Argentina">🇦🇷 Argentina (+54)</option>
+          <option value="+52" data-country="Mexico">🇲🇽 Mexico (+52)</option>
+          <option value="+56" data-country="Chile">🇨🇱 Chile (+56)</option>
+          <option value="+57" data-country="Colombia">🇨🇴 Colombia (+57)</option>
+          <option value="+58" data-country="Venezuela">🇻🇪 Venezuela (+58)</option>
+          <option value="+55" data-country="Brazil">🇧🇷 Brazil (+55)</option>
+          <option value="+598" data-country="Uruguay">🇺🇾 Uruguay (+598)</option>
+          <option value="+595" data-country="Paraguay">🇵🇾 Paraguay (+595)</option>
+          <option value="+591" data-country="Bolivia">🇧🇴 Bolivia (+591)</option>
+          <option value="+51" data-country="Peru">🇵🇪 Peru (+51)</option>
+          <option value="+593" data-country="Ecuador">🇪🇨 Ecuador (+593)</option>
+          <option value="+506" data-country="Costa Rica">🇨🇷 Costa Rica (+506)</option>
+          <option value="+507" data-country="Panama">🇵🇦 Panama (+507)</option>
+          <option value="+33" data-country="France">🇫🇷 France (+33)</option>
+          <option value="+49" data-country="Germany">🇩🇪 Germany (+49)</option>
+          <option value="+39" data-country="Italy">🇮🇹 Italy (+39)</option>
+          <option value="+351" data-country="Portugal">🇵🇹 Portugal (+351)</option>
+          <option value="other" data-country="Other">🌍 Other country</option>
+        </select>
+        <input type="tel" name="whatsapp_number" required placeholder="555 555 5555">
+      </div>
+    </div>
+
+    <!-- Q4 - Role -->
+    <div class="question">
+      <div class="question-num">Question 4 of 17</div>
+      <div class="question-label">What's your main role today?</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="rol" value="founder-solo" required><span>Founder / solo owner</span></label>
+        <label class="option"><input type="radio" name="rol" value="freelance"><span>Freelancer / consultant</span></label>
+        <label class="option"><input type="radio" name="rol" value="duo"><span>Duo / co-founder</span></label>
+        <label class="option"><input type="radio" name="rol" value="lead-equipo"><span>Team lead (3+ people)</span></label>
+        <label class="option"><input type="radio" name="rol" value="empleada-side"><span>Employee with side projects</span></label>
+        <label class="option"><input type="radio" name="rol" value="otro"><span>Other</span></label>
+      </div>
+    </div>
+
+    <!-- Q5 - Number of projects -->
+    <div class="question">
+      <div class="question-num">Question 5 of 17</div>
+      <div class="question-label">How many projects do you run in parallel?</div>
+      <p class="question-help">Count everything: work, side projects, serious hobbies.</p>
+      <div class="options">
+        <label class="option"><input type="radio" name="proyectos" value="1" required><span>1 — fully focused</span></label>
+        <label class="option"><input type="radio" name="proyectos" value="2-3"><span>2-3 — manageable</span></label>
+        <label class="option"><input type="radio" name="proyectos" value="4-5"><span>4-5 — starts overwhelming me</span></label>
+        <label class="option"><input type="radio" name="proyectos" value="6+"><span>6+ — I know I have too much</span></label>
+      </div>
+    </div>
+
+    <!-- Q6 - Tools (multi) -->
+    <div class="question">
+      <div class="question-num">Question 6 of 17</div>
+      <div class="question-label">What tools do you use today to organize your work?</div>
+      <p class="question-help">Check all that apply.</p>
+      <div class="options">
+        <label class="option"><input type="checkbox" name="tools" value="apple-notes"><span>Apple Notes</span></label>
+        <label class="option"><input type="checkbox" name="tools" value="notion"><span>Notion</span></label>
+        <label class="option"><input type="checkbox" name="tools" value="google-docs"><span>Google Docs / Drive</span></label>
+        <label class="option"><input type="checkbox" name="tools" value="excel-sheets"><span>Excel / Google Sheets</span></label>
+        <label class="option"><input type="checkbox" name="tools" value="todoist"><span>Todoist / Things / TickTick</span></label>
+        <label class="option"><input type="checkbox" name="tools" value="asana-clickup"><span>Asana / ClickUp / Monday</span></label>
+        <label class="option"><input type="checkbox" name="tools" value="trello"><span>Trello</span></label>
+        <label class="option"><input type="checkbox" name="tools" value="calendar"><span>Just Google/Apple Calendar</span></label>
+        <label class="option"><input type="checkbox" name="tools" value="papel"><span>Paper / notebook</span></label>
+        <label class="option"><input type="checkbox" name="tools" value="cabeza"><span>My head (no tool)</span></label>
+      </div>
+    </div>
+
+    <!-- Q7 - Tool spend -->
+    <div class="question">
+      <div class="question-num">Question 7 of 17</div>
+      <div class="question-label">How much do you spend per month on organization tools?</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="pago" value="0" required><span>$0 — all free</span></label>
+        <label class="option"><input type="radio" name="pago" value="1-30"><span>$1 - $30 / mo</span></label>
+        <label class="option"><input type="radio" name="pago" value="31-100"><span>$31 - $100 / mo</span></label>
+        <label class="option"><input type="radio" name="pago" value="100+"><span>$100+ / mo</span></label>
+      </div>
+    </div>
+
+    <!-- Q8 - Frequency things slip -->
+    <div class="question">
+      <div class="question-num">Question 8 of 17</div>
+      <div class="question-label">How often do things slip through?</div>
+      <p class="question-help">Forgotten tasks, lost ideas, deadlines moved without notice.</p>
+      <div class="options">
+        <label class="option"><input type="radio" name="frecuencia" value="nunca" required><span>Never — I'm a machine</span></label>
+        <label class="option"><input type="radio" name="frecuencia" value="a-veces"><span>Sometimes, once a month</span></label>
+        <label class="option"><input type="radio" name="frecuencia" value="seguido"><span>Often, several times a week</span></label>
+        <label class="option"><input type="radio" name="frecuencia" value="todo-el-tiempo"><span>All the time, doesn't surprise me anymore</span></label>
+      </div>
+    </div>
+
+    <!-- Q9 - Use AI -->
+    <div class="question">
+      <div class="question-num">Question 9 of 17</div>
+      <div class="question-label">Do you use AI for your work?</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="ia" value="no" required><span>No, haven't tried yet</span></label>
+        <label class="option"><input type="radio" name="ia" value="chatgpt"><span>Yes, ChatGPT (free or Plus)</span></label>
+        <label class="option"><input type="radio" name="ia" value="claude"><span>Yes, Claude</span></label>
+        <label class="option"><input type="radio" name="ia" value="varias"><span>Yes, I use several (Claude + ChatGPT + others)</span></label>
+        <label class="option"><input type="radio" name="ia" value="claude-code"><span>Yes, even Claude Code (CLI)</span></label>
+      </div>
+    </div>
+
+    <!-- Q10 - How you use Claude -->
+    <div class="question">
+      <div class="question-num">Question 10 of 17</div>
+      <div class="question-label">How do you use Claude today?</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="claude_modo" value="no-uso" required><span>I don't use Claude</span></label>
+        <label class="option"><input type="radio" name="claude_modo" value="web"><span>Web (claude.ai) — from the browser</span></label>
+        <label class="option"><input type="radio" name="claude_modo" value="desktop"><span>Claude Desktop (the app)</span></label>
+        <label class="option"><input type="radio" name="claude_modo" value="cli"><span>Claude Code (CLI / terminal)</span></label>
+        <label class="option"><input type="radio" name="claude_modo" value="varios"><span>Multiple (web + CLI / desktop combined)</span></label>
+      </div>
+    </div>
+
+    <!-- Q11 - Recurring projects in Claude -->
+    <div class="question">
+      <div class="question-num">Question 11 of 17</div>
+      <div class="question-label">Do you have projects / conversations in Claude you keep going back to?</div>
+      <p class="question-help">For example: one chat for writing, another for coding, another for your business.</p>
+      <div class="options">
+        <label class="option"><input type="radio" name="claude_proyectos" value="no" required><span>No, I start a new chat every time</span></label>
+        <label class="option"><input type="radio" name="claude_proyectos" value="1-2"><span>Yes, 1-2 recurring conversations</span></label>
+        <label class="option"><input type="radio" name="claude_proyectos" value="3+"><span>Yes, 3+ organized projects</span></label>
+        <label class="option"><input type="radio" name="claude_proyectos" value="no-se"><span>I don't know / not sure</span></label>
+      </div>
+    </div>
+
+    <!-- Q12 - Skills / memory -->
+    <div class="question">
+      <div class="question-num">Question 12 of 17</div>
+      <div class="question-label">Did you load any custom skills, memory, or base doc in Claude?</div>
+      <p class="question-help">If this question doesn't ring a bell, pick "I don't know what that is" — that's OK.</p>
+      <div class="options">
+        <label class="option"><input type="radio" name="claude_skills" value="si" required><span>Yes, I have skills + memory configured</span></label>
+        <label class="option"><input type="radio" name="claude_skills" value="solo-system-prompt"><span>I only loaded a system prompt / project doc</span></label>
+        <label class="option"><input type="radio" name="claude_skills" value="no"><span>No, I use Claude as it comes</span></label>
+        <label class="option"><input type="radio" name="claude_skills" value="no-se"><span>I don't know what that is</span></label>
+      </div>
+    </div>
+
+    <!-- Q13 - Memory between sessions -->
+    <div class="question">
+      <div class="question-num">Question 13 of 17</div>
+      <div class="question-label">Does your Claude remember things between sessions?</div>
+      <p class="question-help">For example: does it remember who you are, what projects you have, decisions you made?</p>
+      <div class="options">
+        <label class="option"><input type="radio" name="claude_memoria" value="si" required><span>Yes, it remembers everything important</span></label>
+        <label class="option"><input type="radio" name="claude_memoria" value="a-veces"><span>Sometimes yes, sometimes no</span></label>
+        <label class="option"><input type="radio" name="claude_memoria" value="no"><span>No, every chat starts from scratch</span></label>
+        <label class="option"><input type="radio" name="claude_memoria" value="no-se"><span>I don't know / haven't noticed</span></label>
+      </div>
+    </div>
+
+    <!-- Q14 - Claude frustration -->
+    <div class="question">
+      <div class="question-num">Question 14 of 17</div>
+      <div class="question-label">Is there anything about Claude that frustrates you today?</div>
+      <p class="question-help">This helps us personalize the install. If you don't use Claude, leave it blank.</p>
+      <textarea name="claude_frustracion" placeholder="For example: 'it forgets everything' / 'I don't know how to get the most out of it' / 'it doesn't connect to my tools'"></textarea>
+    </div>
+
+    <!-- Q15 - Main org frustration -->
+    <div class="question">
+      <div class="question-num">Question 15 of 17</div>
+      <div class="question-label">What's your biggest frustration with how you organize your work today?</div>
+      <div class="options">
+        <label class="option"><input type="radio" name="frustracion" value="todo-disperso" required><span>Everything is in different places, nothing is connected</span></label>
+        <label class="option"><input type="radio" name="frustracion" value="ia-olvida"><span>My AI forgets everything between sessions</span></label>
+        <label class="option"><input type="radio" name="frustracion" value="empiezo-no-termino"><span>I start a thousand things, finish few</span></label>
+        <label class="option"><input type="radio" name="frustracion" value="nadie-me-fuerza"><span>No one forces me to stick with a system</span></label>
+        <label class="option"><input type="radio" name="frustracion" value="prioridades"><span>My priorities are unclear, everything feels urgent</span></label>
+        <label class="option"><input type="radio" name="frustracion" value="otro"><span>Other (I explain below)</span></label>
+      </div>
+    </div>
+
+    <!-- Q16 - Success -->
+    <div class="question">
+      <div class="question-num">Question 16 of 17</div>
+      <div class="question-label">What would be a success for you at the end of your first month with The Ops Hack?</div>
+      <p class="question-help">1 sentence. No filter.</p>
+      <textarea name="exito" required placeholder="For example: 'never lose an important idea again' or 'close an entire project with everything tracked'"></textarea>
+    </div>
+
+    <!-- Q17 - Don't want -->
+    <div class="question">
+      <div class="question-num">Question 17 of 17</div>
+      <div class="question-label">Is there anything you DON'T want from the system?</div>
+      <p class="question-help">For example: "I don't want to share anything with anyone" / "no automatic blockers" / "don't force me to use Notion". Otherwise, leave blank.</p>
+      <textarea name="no_quiere" placeholder="Optional"></textarea>
+    </div>
+
+    <!-- Submit -->
+    <div class="submit-area">
+      <button type="submit" class="btn-submit" id="submitBtn">Send responses</button>
+      <p class="submit-note">Your responses go directly to Laura. Nothing is shared with third parties.</p>
+    </div>
+
+  </form>
+
+</div>
+
+<!-- Thank you screen -->
+<div class="container thank-you" id="thankYou">
+  <div class="thank-icon">🎯</div>
+  <h2>Got it, <span id="thankName">friend</span>!</h2>
+  <p>Laura has your responses. She'll reach out via WhatsApp within 24hs to coordinate the install.</p>
+  <a href="https://ops-hack.vercel.app/en" class="thank-link">← Back to the main page</a>
+</div>
+
+<script>
+  // === CONFIG ===
+  // Apps Script Web App URL — pegar acá después del deploy
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbx-Ca5VcgklqC6KZLvSF87G86v15W1fz8D-NRynyQu5G6SBxiPMJb8_EuEsYU4CplK2TQ/exec';
+
+  const form = document.getElementById('discoveryForm');
+  const progressBar = document.getElementById('progressBar');
+  const submitBtn = document.getElementById('submitBtn');
+  const formContainer = document.getElementById('form-container');
+  const thankYou = document.getElementById('thankYou');
+  const thankName = document.getElementById('thankName');
+
+  // Visual selection state for radio/checkbox
+  document.querySelectorAll('.option').forEach(opt => {
+    const input = opt.querySelector('input');
+    input.addEventListener('change', () => {
+      if (input.type === 'radio') {
+        document.querySelectorAll(`input[name="${input.name}"]`).forEach(r => {
+          r.closest('.option').classList.toggle('selected', r.checked);
+        });
+      } else {
+        opt.classList.toggle('selected', input.checked);
+      }
+      updateProgress();
+    });
+  });
+
+  // Progress bar
+  function updateProgress() {
+    const total = 17;
+    const formData = new FormData(form);
+    const requiredKeys = ['nombre','email','whatsapp_country','whatsapp_number','rol','proyectos','pago','frecuencia','ia',
+                          'claude_modo','claude_proyectos','claude_skills','claude_memoria',
+                          'frustracion','exito'];
+    const filled = requiredKeys.filter(k => formData.get(k)).length
+      + (formData.getAll('tools').length > 0 ? 1 : 0)  // Q6 tools
+      + (formData.get('claude_frustracion') ? 1 : 0)   // Q14 optional
+      + (formData.get('no_quiere') ? 1 : 0);           // Q17 optional
+    progressBar.style.width = `${Math.min((filled / total) * 100, 100)}%`;
+  }
+
+  ['input', 'change'].forEach(ev => form.addEventListener(ev, updateProgress));
+
+  // Submit
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Enviando...';
+
+    const formData = new FormData(form);
+    const data = {
+      timestamp: new Date().toISOString(),
+      nombre: formData.get('nombre'),
+      email: formData.get('email'),
+      whatsapp: (formData.get('whatsapp_country') === 'other' ? '' : formData.get('whatsapp_country') + ' ') + formData.get('whatsapp_number'),
+      rol: formData.get('rol'),
+      proyectos: formData.get('proyectos'),
+      tools: formData.getAll('tools').join(', '),
+      pago: formData.get('pago'),
+      frecuencia: formData.get('frecuencia'),
+      ia: formData.get('ia'),
+      claude_modo: formData.get('claude_modo'),
+      claude_proyectos: formData.get('claude_proyectos'),
+      claude_skills: formData.get('claude_skills'),
+      claude_memoria: formData.get('claude_memoria'),
+      claude_frustracion: formData.get('claude_frustracion') || '',
+      frustracion: formData.get('frustracion'),
+      exito: formData.get('exito'),
+      no_quiere: formData.get('no_quiere') || '',
+      source: window.location.href,
+      status: 'NEW',
+    };
+
+    try {
+      // Apps Script Web App accepts no-cors POST with text/plain body
+      await fetch(ENDPOINT, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(data),
+      });
+
+      // Show thank you (no-cors mode means we can't read response, assume OK)
+      formContainer.style.display = 'none';
+      thankName.textContent = data.nombre.split(' ')[0];
+      thankYou.classList.add('active');
+      window.scrollTo(0, 0);
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Enviar respuestas';
+      alert('Algo no funcionó. Probá de nuevo o escribile directo a Laura por WhatsApp.');
+      console.error(err);
+    }
+  });
+</script>
+
+</body>
+</html>
